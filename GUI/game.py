@@ -12,19 +12,19 @@ class MainWindow(QWidget):
         self.scoreLayout = QHBoxLayout()
 
         self.player1NameLabel = QLabel("Player1")
-        self.player1NameLabel.setFont(QFont("바탕", 15))
+        self.player1NameLabel.setFont(QFont("Arial", 15))
         self.player1ScoreEdit = QLineEdit('0')
         self.player1ScoreEdit.setReadOnly(True)
         self.player1ScoreEdit.setAlignment(Qt.AlignCenter)
 
         self.player2NameLabel = QLabel("Player2")
-        self.player2NameLabel.setFont(QFont("바탕", 15))
+        self.player2NameLabel.setFont(QFont("Arial", 15))
         self.player2ScoreEdit = QLineEdit('0')
         self.player2ScoreEdit.setReadOnly(True)
         self.player2ScoreEdit.setAlignment(Qt.AlignCenter)
 
         self.timeNameLabel = QLabel("Time")
-        self.timeNameLabel.setFont(QFont("바탕", 15))
+        self.timeNameLabel.setFont(QFont("Arial", 15))
         self.timeEdit = QLineEdit('0')
         self.timeEdit.setReadOnly(True)
         self.timeEdit.setAlignment(Qt.AlignCenter)
@@ -44,20 +44,30 @@ class MainWindow(QWidget):
         self.centerLayout = QGridLayout()
 
         self.roundLabel = QLabel('Round 1')  # 라운드 변경 함수 추가
+        self.roundLabel.setFont(QFont("Arial", 15))
 
         self.figureLayout = QGridLayout()
-        ran = random.randint(0, 27)
+        randomList = random.sample([i for i in range(27)], 9)
+        r, c = 0, 0
 
-        pixmap = QPixmap(imagePathList[ran])
-        pixmap = pixmap.scaledToHeight(50)
+        for randomnum in randomList:
+            pixmap = QPixmap(imagePathList[randomnum])
+            pixmap = pixmap.scaledToHeight(50)
 
-        figureLabel = QLabel(self)
-        figureLabel.setPixmap(pixmap)
+            figureLabel = QLabel(self)
+            figureLabel.setPixmap(pixmap)
+
+            self.figureLayout.addWidget(figureLabel, r, c)
+            r += 1
+
+            if r >= 3:
+                r = 0
+                c += 1
 
         self.logLayout = QGridLayout()
 
         self.centerLayout.addWidget(self.roundLabel, 0, 0)
-        self.centerLayout.addWidget(figureLabel, 0, 1)
+        self.centerLayout.addLayout(self.figureLayout, 0, 1)
         self.centerLayout.addLayout(self.logLayout, 0, 2)
 
         """메인 레이아웃"""
