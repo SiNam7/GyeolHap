@@ -11,3 +11,5 @@ imagePathList = ["../image/Blue_Circle_White.png", "../image/Blue_Circle_Black.p
                  "../image/Yellow_Circle_White.png", "../image/Yellow_Circle_Black.png", "../image/Yellow_Circle_Gray.png",
                  "../image/Yellow_Square_White.png", "../image/Yellow_Square_Black.png", "../image/Yellow_Square_Gray.png",
                  "../image/Yellow_Triangle_White.png", "../image/Yellow_Triangle_Black.png", "../image/Yellow_Triangle_Gray.png"]
+
+functionList = ["enter", "del", "clear"]
