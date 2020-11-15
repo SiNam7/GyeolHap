@@ -60,10 +60,9 @@ class MainWindow(QWidget):
                 c += 1
 
         self.logLayout = QVBoxLayout()
-
-        for i in range(12):
-            edit = LineEdit()
-            self.logLayout.addWidget(edit)
+        self.logLabel = QLabel('Log')
+        self.logLabel.setFont(QFont("Arial", 15))
+        self.logLayout.addWidget(self.logLabel)
 
         self.centerLayout.addWidget(self.roundLabel, 0, 0)
         self.centerLayout.addLayout(self.figureLayout, 0, 1)
@@ -150,7 +149,13 @@ class MainWindow(QWidget):
         self.player1ScoreEdit.setText(score1)
         self.player2ScoreEdit.setText(score2)
 
-    # TODO 온라인 구현 할 때 추가
+    # TODO Add at after checkGyeol & adjustsize 이용
+    def logProduce(self, s: set):
+        self.logEdit = LineEdit()
+        self.logEdit.setText(s)
+        self.logLayout.addWidget(self.logEdit)
+
+    # TODO 온라인 구현 할 때 추가 & QBasictimer module
     def timePrint(self):
         start = time.time()
         while t > 0:
