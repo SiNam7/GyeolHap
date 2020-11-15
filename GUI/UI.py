@@ -1,3 +1,5 @@
+import time
+
 playersName = ["Player1", "Player2"]
 
 playersKind = ["Name", "Score"]
@@ -12,4 +14,8 @@ imagePathList = ["../image/Blue_Circle_White.png", "../image/Blue_Circle_Black.p
                  "../image/Yellow_Square_White.png", "../image/Yellow_Square_Black.png", "../image/Yellow_Square_Gray.png",
                  "../image/Yellow_Triangle_White.png", "../image/Yellow_Triangle_Black.png", "../image/Yellow_Triangle_Gray.png"]
 
-functionList = ["enter", "del", "clear"]
+functionList = ["Gyeol", "Hap", "del", "clear"]
+
+roundList = ["Round" + " " + str(i) for i in range(1, 10)]
+
+

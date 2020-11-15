@@ -1,10 +1,11 @@
-import sys, random
+import sys, random, time
 from PyQt5.QtWidgets import QWidget, QGridLayout, QApplication, QLineEdit, QLabel, QHBoxLayout, QVBoxLayout, QPushButton, QSizePolicy
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QFont
-from GUI.UI import imagePathList, functionList
+from GUI.UI import imagePathList, functionList, roundList
 
 class MainWindow(QWidget):
+
     def __init__(self):
         super().__init__()
 
@@ -102,14 +103,16 @@ class MainWindow(QWidget):
         self.setGeometry(300, 300, 450, 450)
         self.show()
 
+    #TODO add enter function / Call logPrint, Pass the key to logic.checkHap
     def buttonClicked(self):
         btn = self.sender()
         key = btn.text()
-        if key == 'enter':
+        if key == 'Gyeol':
             return 0
+        elif key == 'Hap':
+            result = map(int, self.answerEdit.text())
         elif key == "del":
-            newtext = self.answerEdit.text()[:-1]
-            self.answerEdit.setText(newtext)
+            self.answerEdit.setText(self.answerEdit.text()[:-1])
         elif key == "clear":
             self.answerEdit.setText('0')
         elif self.answerEdit.text() == '0':
@@ -119,6 +122,41 @@ class MainWindow(QWidget):
                 return 0
             self.answerEdit.setText(self.answerEdit.text() + key)
 
+    # TODO add enter function / Call logPrint, Pass the key to logic.checkHap
+    def keyPressEvent(self, e):
+        """Receives keyboard input and outputs"""
+        try:
+            if e.key() == Qt.Key_Escape:
+                self.close()
+            elif e.key() == Qt.Key_Backspace:
+                self.answerEdit.setText(self.answerEdit.text()[:-1])
+            elif len(self.answerEdit.text()) <= 2 and int(e.text()) in range(10):
+                if self.answerEdit.text() == '0':
+                    self.answerEdit.setText(e.text())
+                else:
+                    self.answerEdit.setText(self.answerEdit.text() + e.text())
+        except ValueError as e:
+            self.answerEdit.setText("Only numbers can be entered")
+
+    # TODO Add at after checkGyeol & add decision win and lose at after "else:"
+    def roundPrint(self, before):
+        """To mark next round when called"""
+        temp = roundList[int(before[-1])]
+        if temp <= 8:
+            self.roundLabel.setText(temp)
+
+    def setScore(self, score1, score2):
+        """set player1ScoreEdit and player2ScoreEdit"""
+        self.player1ScoreEdit.setText(score1)
+        self.player2ScoreEdit.setText(score2)
+
+    # TODO 온라인 구현 할 때 추가
+    def timePrint(self):
+        start = time.time()
+        while t > 0:
+            t = 30 - (time.time() - start)
+            self.timeEdit.setText(t)
+        self.timeEdit.setText("Time Over")
 
 
 class Button(QPushButton):
