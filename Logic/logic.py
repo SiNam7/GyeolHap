@@ -25,7 +25,7 @@ def calculateHap(answerSet) -> bool:
 
     color = set()
     for tile in answerSet:
-        color.add(tile.background)
+        color.add(tile.color)
 
     if len(color) == 3:
         pass

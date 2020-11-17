@@ -62,7 +62,7 @@ class Gyeolhap:
         while self.currentround <= self.rounds:
             self.currentfigure = self.roundFigures[self.currentround - 1]
             # TODO sudo-code / add tiles to figureLayout
-            ui.figureLayout.addFigure(self.currentfigure)
+            ui.figureLayout.addFigure(self.currentfigure.tileList)
 
             while True:
                 # TODO / break when Gyeol confirmed
