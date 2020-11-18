@@ -1,7 +1,12 @@
+from random import random
+
+from Logic.gyeolhap import Round
+
+
 class Player:
-    def __init__(self):
+    def __init__(self, name=None):
         self.game = None
-        self.__name = 'player'
+        self.__name = 'player' if name is None else name
         self.__score = 0
 
     @property
@@ -26,3 +31,15 @@ class Player:
             self.game.checkHap(answer)
         elif answerType == 'G':
             self.game.checkGyeol()
+
+
+def addBotPlayer() -> Player:
+    return Player('Bot')
+
+
+def botSolveAlgorithm(r: Round) -> set:
+    answerSet = set(r.answerSet)
+    answerLog = set(r.answerLog)
+
+    possibleAnswer = answerSet - answerLog
+    return random.sample(possibleAnswer, 1)

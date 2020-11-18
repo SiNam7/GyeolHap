@@ -12,7 +12,7 @@ class Round:
 
     tileList = []
     answerSet: List[set] = []
-    answerLog: List[set] = {}
+    answerLog: List[set] = []
 
     def __init__(self):
         tileNo = []
