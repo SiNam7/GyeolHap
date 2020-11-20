@@ -73,6 +73,7 @@ class MainWindow(QWidget):
         self.centerLayout.addLayout(self.logLayout, 0, 2)
 
         self.answerEdit = LineEdit()
+        self.answerSet = {}
 
         self.buttonLayout = QGridLayout()
         self.numLayout = QGridLayout()
@@ -144,11 +145,11 @@ class MainWindow(QWidget):
     def slot_toggle(self, state):
         btn = self.sender()
         if state:
-            self.textSet.add(int(btn.toolTip()))
-            self.textEdit.setText(str(self.textSet))  # textEdit 출력을 정하는 함수 - 길이가 3이상이면 출력 x - 출력형식 다듬기
+            self.answerSet.add(int(btn.toolTip()))
+            self.answerEdit.setText(str(self.answerSet))  # textEdit 출력을 정하는 함수 - 길이가 3이상이면 출력 x - 출력형식 다듬기
         else:
-            self.textSet.remove(int(btn.toolTip()))
-            self.textEdit.setText(str(self.textSet))
+            self.answerSet.remove(int(btn.toolTip()))
+            self.answerEdit.setText(str(self.answerSet))
 
     # TODO Add at after checkGyeol & add decision win and lose at after "else:"
     def roundPrint(self, before):
