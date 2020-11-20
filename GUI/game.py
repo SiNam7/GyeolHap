@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QApplication, QLineEdit, QLabe
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QFont, QIcon
 from GUI.UI import functionList, roundList, Tile
-from Logic.gyeolhap import Round
+from Logic.gyeolhap import Round, Gyeolhap
 
 class MainWindow(QWidget):
 
@@ -13,11 +13,11 @@ class MainWindow(QWidget):
         """점수 저장 + 시간 기록 레이아웃"""
         self.scoreLayout = QHBoxLayout()
 
-        self.player1NameLabel = QLabel("Player1")
+        self.player1NameLabel = QLabel(Gyeolhap.players[0].name)
         self.player1NameLabel.setFont(QFont("Arial", 15))
         self.player1ScoreEdit = LineEdit()
 
-        self.player2NameLabel = QLabel("Player2")
+        self.player2NameLabel = QLabel(Gyeolhap.players[1].name)
         self.player2NameLabel.setFont(QFont("Arial", 15))
         self.player2ScoreEdit = LineEdit()
 
@@ -142,11 +142,12 @@ class MainWindow(QWidget):
         except ValueError as e:
             self.answerEdit.setText("Only numbers can be entered")
 
+    #TODO if len(self.answerSet) >= 3: can't add at self.answerSet
     def slot_toggle(self, state):
         btn = self.sender()
         if state:
             self.answerSet.add(int(btn.toolTip()))
-            self.answerEdit.setText(str(self.answerSet))  # textEdit 출력을 정하는 함수 - 길이가 3이상이면 출력 x - 출력형식 다듬기
+            self.answerEdit.setText(str(self.answerSet))  # answerEdit 출력을 정하는 함수 - 길이가 3이상이면 출력 x - 출력형식 다듬기
         else:
             self.answerSet.remove(int(btn.toolTip()))
             self.answerEdit.setText(str(self.answerSet))
