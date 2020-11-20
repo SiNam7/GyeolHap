@@ -45,12 +45,17 @@ class MainWindow(QWidget):
         # TODO make row, column setting funciton
         figureLayout = QGridLayout()
         r, c = 0, 0
+        cnt = 1
 
         for key in Round.tileList:
-            Qicon = Qicon(Tile.tileDict[key][3])
+            Qicon = QIcon(Tile.tileDict[key][3])
 
             figureButton = QPushButton(self)
             figureButton.setIcon(Qicon)
+            figureButton.setToolTip(str(cnt))
+            figureButton.setCheckable(True)
+            figureButton.resize(30, 30)
+            figureButton.clicked[bool].connect(self.slot_toggle)
 
             self.figureLayout.addWidget(figureButton, r, c)
             r += 1
@@ -135,6 +140,15 @@ class MainWindow(QWidget):
                     self.answerEdit.setText(self.answerEdit.text() + e.text())
         except ValueError as e:
             self.answerEdit.setText("Only numbers can be entered")
+
+    def slot_toggle(self, state):
+        btn = self.sender()
+        if state:
+            self.textSet.add(int(btn.toolTip()))
+            self.textEdit.setText(str(self.textSet))  # textEdit 출력을 정하는 함수 - 길이가 3이상이면 출력 x - 출력형식 다듬기
+        else:
+            self.textSet.remove(int(btn.toolTip()))
+            self.textEdit.setText(str(self.textSet))
 
     # TODO Add at after checkGyeol & add decision win and lose at after "else:"
     def roundPrint(self, before):
