@@ -1,7 +1,7 @@
-import sys, random, time
+import sys, time
 from PyQt5.QtWidgets import QWidget, QGridLayout, QApplication, QLineEdit, QLabel, QHBoxLayout, QVBoxLayout, QPushButton, QSizePolicy
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap, QFont
+from PyQt5.QtGui import QPixmap, QFont, QIcon
 from GUI.UI import functionList, roundList, Tile
 from Logic.gyeolhap import Round
 
@@ -47,13 +47,12 @@ class MainWindow(QWidget):
         r, c = 0, 0
 
         for key in Round.tileList:
-            pixmap = QPixmap(Tile.tileDict[key])
-            pixmap.scaledToHeight(50)
+            Qicon = Qicon(Tile.tileDict[key][3])
 
-            figureLabel = QLabel(self)
-            figureLabel.setPixmap(pixmap)
+            figureButton = QPushButton(self)
+            figureButton.setIcon(Qicon)
 
-            self.figureLayout.addWidget(figureLabel, r, c)
+            self.figureLayout.addWidget(figureButton, r, c)
             r += 1
             if r >= 3:
                 r = 0
