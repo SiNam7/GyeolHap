@@ -2,7 +2,8 @@ import sys, random, time
 from PyQt5.QtWidgets import QWidget, QGridLayout, QApplication, QLineEdit, QLabel, QHBoxLayout, QVBoxLayout, QPushButton, QSizePolicy
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QFont
-from GUI.UI import imagePathList, functionList, roundList
+from GUI.UI import functionList, roundList, Tile
+from Logic.gyeolhap import Round
 
 class MainWindow(QWidget):
 
@@ -41,20 +42,19 @@ class MainWindow(QWidget):
         self.roundLabel = QLabel('Round 1')  # 라운드 변경 함수 추가
         self.roundLabel.setFont(QFont("Arial", 15))
 
-        self.figureLayout = QGridLayout()
-        randomList = random.sample([i for i in range(27)], 9)
+        # TODO make row, column setting funciton
+        figureLayout = QGridLayout()
         r, c = 0, 0
 
-        for randomnum in randomList:
-            pixmap = QPixmap(imagePathList[randomnum])
-            pixmap = pixmap.scaledToHeight(50)
+        for key in Round.tileList:
+            pixmap = QPixmap(Tile.tileDict[key])
+            pixmap.scaledToHeight(50)
 
             figureLabel = QLabel(self)
             figureLabel.setPixmap(pixmap)
 
             self.figureLayout.addWidget(figureLabel, r, c)
             r += 1
-
             if r >= 3:
                 r = 0
                 c += 1
@@ -65,7 +65,7 @@ class MainWindow(QWidget):
         self.logLayout.addWidget(self.logLabel)
 
         self.centerLayout.addWidget(self.roundLabel, 0, 0)
-        self.centerLayout.addLayout(self.figureLayout, 0, 1)
+        self.centerLayout.addLayout(figureLayout, 0, 1)
         self.centerLayout.addLayout(self.logLayout, 0, 2)
 
         self.answerEdit = LineEdit()
