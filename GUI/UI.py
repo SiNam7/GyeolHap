@@ -14,7 +14,7 @@ class Tile:
 
         self.tileDict = {}  # key: tilename, value: list(figure shape, figure color, background color)
 
-        f = open("tile.txt", "r")
+        f = open("../GUI/tile.txt", "r")
         lines = f.readlines()
         shapeList = lines[0].split()
         colorList = lines[1].split()
