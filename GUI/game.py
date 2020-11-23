@@ -3,12 +3,15 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QApplication, QLineEdit, QLabe
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QFont, QIcon
 from GUI.UI import functionList, roundList, Tile
-from Logic.gyeolhap import Round, Gyeolhap
+from System.gyeolhap import Gyeolhap, Round
+from System.extra import Player
 
 class MainWindow(QWidget):
 
     def __init__(self):
         super().__init__()
+
+        # self.game = Gyeolhap(Player('player1'), Player('player2'))
 
         """점수 저장 + 시간 기록 레이아웃"""
         self.scoreLayout = QHBoxLayout()
