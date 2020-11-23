@@ -2,3 +2,5 @@
 /.idea
 *.pyc
 /ExamPyQt5
+
+timer.py
