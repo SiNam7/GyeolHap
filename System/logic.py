@@ -6,7 +6,7 @@ from System.extra import Player
 
 # [(0, 'Square/Blue/White'), (1, ...]
 allTileDictionary = [(i, k) for i, k in enumerate(Tile().tileDict.keys())]
-
+roundFigures = []
 
 class Round:
     # tileDict = {}

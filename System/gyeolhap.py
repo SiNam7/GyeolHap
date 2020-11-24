@@ -1,4 +1,5 @@
 # from typing import List
+from System import logic
 from System.logic import Round
 from System.extra import Player
 # from UI import ui
@@ -28,6 +29,8 @@ class Gyeolhap:
         self.roundFigures = []
         for _ in range(self.rounds):
             self.roundFigures.append(Round())
+
+        logic.roundFigures = self.roundFigures
 
         # Game start
         self.currentround = 1
