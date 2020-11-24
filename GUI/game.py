@@ -3,24 +3,26 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QApplication, QLineEdit, QLabe
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QFont, QIcon
 from GUI.UI import functionList, roundList, Tile
-from System.gyeolhap import Gyeolhap, Round
+from System.gyeolhap import Gyeolhap
+from System.logic import Round
 from System.extra import Player
+
 
 class MainWindow(QWidget):
 
     def __init__(self):
         super().__init__()
 
-        # self.game = Gyeolhap(Player('player1'), Player('player2'))
+        self.game = Gyeolhap(Player('player1'), Player('player2'))
 
         """점수 저장 + 시간 기록 레이아웃"""
         self.scoreLayout = QHBoxLayout()
 
-        self.player1NameLabel = QLabel(Gyeolhap.players[0].name)
+        self.player1NameLabel = QLabel(self.game.players[0].name)
         self.player1NameLabel.setFont(QFont("Arial", 15))
         self.player1ScoreEdit = LineEdit()
 
-        self.player2NameLabel = QLabel(Gyeolhap.players[1].name)
+        self.player2NameLabel = QLabel(self.game.players[1].name)
         self.player2NameLabel.setFont(QFont("Arial", 15))
         self.player2ScoreEdit = LineEdit()
 
@@ -50,6 +52,7 @@ class MainWindow(QWidget):
         r, c = 0, 0
         cnt = 1
 
+        # TODO pseudo
         for _, key in Round.tileDict:
             Qicon = QIcon(Tile.tileDict[key][3])
 

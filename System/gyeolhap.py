@@ -57,6 +57,14 @@ class Gyeolhap:
 
         return cls(player1, player2)
 
+    @classmethod
+    # debug running setting: Gyeolhap()
+    def defaultSetting(cls):
+        cls.player1 = Player('A')
+        cls.player2 = Player('B')
+
+        return cls(cls.player1, cls.player2)
+
 
 if __name__ == "__main__":
     game = Gyeolhap(Player('A'), Player('B'))
