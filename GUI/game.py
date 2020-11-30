@@ -1,11 +1,11 @@
-import sys, time
+import sys
+import time
 from PyQt5.QtWidgets import QWidget, QGridLayout, QApplication, QLineEdit, QLabel, QHBoxLayout, QVBoxLayout, QPushButton, QSizePolicy
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QFont, QIcon
 from GUI.UI import functionList, roundList, Tile
-from System.gyeolhap import Gyeolhap
+from System.gyeolhap import Gyeolhap, Player
 from System.logic import Round
-from System.extra import Player
 
 
 class MainWindow(QWidget):
