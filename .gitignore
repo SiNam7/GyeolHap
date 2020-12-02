@@ -7,4 +7,4 @@ timer.py
 /PyQt5test/
 *.pyc
 GUI/datapickling.py
-GUI/__pycache__/UI.cpython-38.pyc
+GUI/__pycache__
