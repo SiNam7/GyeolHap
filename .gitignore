@@ -5,3 +5,5 @@
 
 timer.py
 /PyQt5test/
+*.pyc
+GUI/datapickling.py

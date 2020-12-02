@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QIcon
 from PyQt5.Qt import QSize
-#from System.gyeolhap import *
+from System.gyeolhap import Gyeolhap
 from GUI.UI import Tile
 import sys
 
@@ -27,7 +27,6 @@ class LogLayout(QGridLayout):
         self.createTable()
 
         self.addLayout(self.roundLayout, 0, 0)
-        self.addWidget(self.table, 1, 0)
 
     def createTable(self):
         self.table = QTableWidget()
@@ -35,7 +34,7 @@ class LogLayout(QGridLayout):
         self.table.setColumnCount(self.column)
         self.table.setHorizontalHeaderLabels(("Player", "Hap"))
         self.table.resizeRowsToContents()
-        self.addTable("player1", {1, 2})
+        self.addWidget(self.table, 1, 0)
 
     def addTable(self, player, hap):
         rowPosition = self.table.rowCount()
@@ -66,17 +65,17 @@ class LogLayout(QGridLayout):
 
 
 class TileLayout(QGridLayout):
-    def __init__(self, widget):
+    def __init__(self, widget, gl):
         super().__init__()
 
         # self.figureList = Gyeolhap.currentfigure  #TODO To Receives the current round image
 
         t = Tile()
-        #TODO Replace random module with currentFigureList
-        figureList = random.sample(t.tileDict.keys(), 9)
+
+        figureList = list(gl.currentfigure.tileDict.values())
 
         r, c = 0, 0
-        cnt = 1
+        cnt = 0
         for figure in figureList:
             path = t.tileDict[figure][3]
             tilebutton = TileButton(path, widget.slot_toggle, cnt)
@@ -93,7 +92,6 @@ class PlayerLayout(QGridLayout):
         super().__init__()
         self._userLabel = QLabel(widget)
         self._userLabel.setFont(QFont("Arial", 15))  #TODO 글씨체 선정
-        self.setUserLabel("player 1")
 
         self._userScoreEdit = QTextEdit(widget)
         self._userScoreEdit.setFixedSize(70, 40)

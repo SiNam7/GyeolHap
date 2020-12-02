@@ -1,6 +1,6 @@
 # from typing import List
 import itertools
-from random import random
+from random import random, sample
 
 from GUI.UI import Tile
 from System import logic
@@ -20,6 +20,7 @@ class Player:
         self.game = None
         self.name = 'player' if name is None else name
         self.score = 0
+        self.turn = False
 
     def submitAnswer(self, answerType: str, answer: set = None) -> bool:  # answerType: 'G'결 / 'H'합
         """
@@ -29,20 +30,21 @@ class Player:
         :return: 정답: True, 오답: False
         """
         if answerType == 'H':
-            if logic.checkHap(self.game.currentfigure, answer) is True:
+            if logic.checkHap(self.game.currentfigure.answerSet, answer) is True:
                 self.score += Gyeolhap.score['H']
                 self.game.currentfigure.answerLog += answer
+                self.game.currentfigure.answerSet.remove(answer)
                 return True
             else:
                 self.score -= Gyeolhap.penalty['H']
                 return False
         elif answerType == 'G':
-            if logic.checkGyeol(self.game.currentfigure) is True:
-                self.score = Gyeolhap.score['G']
+            if logic.checkGyeol(self.game.currentfigure.answerSet) is True:
+                self.score += Gyeolhap.score['G']
                 Gyeolhap.gyeolConfirmed = True
                 return True
             else:
-                self.score = Gyeolhap.penalty['G']
+                self.score -= Gyeolhap.penalty['G']
                 return False
         else:
             print("Invaild answer Type:", answerType)
@@ -71,11 +73,12 @@ class Gyeolhap:
     :var self.currentfigure: 현재 라운드에 해당하는 라운드 객체.
     :var self.startplayer: 선 플레이어.
     """
-    rounds = 10
+    rounds = 1  #TODO Test
     timeout = 60  # seconds
     score = {'G': 3, 'H': 1}
     penalty = {'G': 1, 'H': 1}
     gyeolConfirmed = False
+    GameStarted = True
 
     # default game start method: Gyeolhap(player1, player2)
     def __init__(self, player1: Player, player2: Player):
@@ -89,7 +92,7 @@ class Gyeolhap:
         for player in self.players:
             player.game = self
         # self.startplayer = self.players[random.randint(0, 2)]
-        self.startplayer = player1
+        self.players[0].turn = True
 
         # Round figure setup
         self.roundFigures = []
@@ -97,20 +100,17 @@ class Gyeolhap:
             self.roundFigures.append(Round())
 
         # Game start
-        self.currentround = 1
-        while self.currentround <= self.rounds:
+        if self.GameStarted:
+            self.currentround = 1
             self.currentfigure = self.roundFigures[self.currentround - 1]
+            self.GameStarted = False
 
-            while self.gyeolConfirmed is not True:
-                pass
-                # TODO 버튼을 통한 답안 제출 기능 완성 시 아래 코드 삭제
-                self.gyeolConfirmed = True
-
+        if self.currentround <= self.rounds:
             self.gyeolConfirmed = False
-            self.currentround += 1
 
-        # TODO 게임 종료 시
-        pass
+        else:
+            #TODO
+            pass
 
     @classmethod
     @DeprecationWarning  # (!) 아직 작동이 확인되지 않음
@@ -155,11 +155,7 @@ class Round:
         self.answerSet: list = []
         self.answerLog: list = []
 
-        tileNo = []
-        while len(tileNo) < 9:
-            rand = random.randint(0, 26)
-            if rand not in tileNo:
-                tileNo.append(rand)
+        tileNo = sample(range(0, 27), 9)
 
         for i, e in enumerate(tileNo):
             self.tileDict[i] = allTileDictionary[e][1]
@@ -179,13 +175,13 @@ class Round:
                     tileinfo = self.tileDict[number].split('/')
                     e.add(tileinfo[i])
 
-                if len(entry) == 3:
+                if len(e) != 2:
                     pass
                 else:
                     notAnswer = True
                     break
             if notAnswer:
-                break
+                continue
 
             self.answerSet.append(set(entry))
 
