@@ -43,7 +43,6 @@ class MainWindow(QWidget):
         try:
             btn = self.sender()
             key = btn.text()
-            print(self.gl.currentround)
 
             player = self.playerDict[1]
             if player[0].turn is False:
@@ -111,7 +110,8 @@ class MainWindow(QWidget):
                 p1.turn = True
                 p2.turn = False
         else:
-            result, answerType, answer = botSolveAlgorithm(self.gl.currentfigure.answerSet, self.playerDict[2][0])
+            result, answerType, answer = botSolveAlgorithm(
+                self.gl.currentfigure.answerSet, self.playerDict[2][0], self.gl.botCorrectRatio)
 
             player = self.playerDict[2]
 

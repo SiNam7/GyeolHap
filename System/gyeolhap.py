@@ -79,6 +79,7 @@ class Gyeolhap:
     penalty = {'G': 1, 'H': 1}
     gyeolConfirmed = False
     GameStarted = True
+    botCorrectRatio = {'G': 30, 'H': 60}  # unit: %
 
     # default game start method: Gyeolhap(player1, player2)
     def __init__(self, player1: Player, player2: Player):
