@@ -31,6 +31,7 @@ class LogLayout(QGridLayout):
         self.table.setColumnCount(self.column)
         self.table.setHorizontalHeaderLabels(("Player", "Hap"))
         self.table.resizeRowsToContents()
+        self.table.setFixedSize(302, 150)
         self.addWidget(self.table, 1, 0)
 
     def addTable(self, player, hap):
@@ -46,7 +47,7 @@ class LogLayout(QGridLayout):
         :param i:  round number
         :return: none
         """
-        i = str(i) + "round"
+        i = str(i) + " round"
         self.roundLabel.setText(i)
 
     def setItem(self, r, c, s):
@@ -91,10 +92,10 @@ class PlayerLayout(QGridLayout):
         self._userLabel.setFont(QFont("Arial", 15))  #TODO 글씨체 선정
 
         self._userScoreEdit = QTextEdit(widget)
-        self._userScoreEdit.setFixedSize(70, 40)
+        self._userScoreEdit.setFixedSize(80, 50)
         self.setUserScoreLabel("0")
 
-        self.addWidget(self._userLabel, 0, 0)
+        self.addWidget(self._userLabel, 0, 0, Qt.AlignCenter)
         self.addWidget(self._userScoreEdit, 1, 0)
 
     def setUserLabel(self, username):
