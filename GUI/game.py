@@ -1,9 +1,10 @@
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QWidget, QGridLayout
 from GUI.layout import *
 from System.gyeolhap import Gyeolhap, Player
 from System.bot import botSolveAlgorithm
 import sys
 import traceback
+
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -18,7 +19,6 @@ class MainWindow(QWidget):
         self.tl = TileLayout(self, self.gl)
         self.al = AnswerLayout(self)
 
-        #TODO 합쳐버리기
         self.playerDict[1][1].setUserLabel(self.playerDict[1][0].name)
         self.playerDict[2][1].setUserLabel(self.playerDict[2][0].name)
 
@@ -28,16 +28,22 @@ class MainWindow(QWidget):
         self.mainLayout.addLayout(self.al, 1, 1)
         self.mainLayout.addLayout(self.playerDict[2][1], 1, 2)
 
-        self.isSinglePlay = True  #TODO multiPlay
+        self.isSinglePlay = True
 
         self.setGeometry(300, 300, 450, 350)
         self.setLayout(self.mainLayout)
+        self.setWindowTitle("Gyeolhap Game")
         self.show()
+
+    def keyPressEvent(self, e):
+        if e.key() == Qt.Key_Escape:
+            self.close()
 
     def buttonClicked(self):
         try:
             btn = self.sender()
             key = btn.text()
+            print(self.gl.currentround)
 
             player = self.playerDict[1]
             if player[0].turn is False:
@@ -54,7 +60,7 @@ class MainWindow(QWidget):
                 else:
                     self.wrong(player)
             self.turnChange(self.playerDict[1][0], self.playerDict[2][0])
-        except:
+        except Exception as e:
             traceback.print_exc()
 
     def slot_toggle(self, state):
@@ -66,8 +72,7 @@ class MainWindow(QWidget):
             answerSet = self.al.removeAnswerSet(int(btn.toolTip()))
             self.al.setAnwerEdit(answerSet)
 
-
-    def hapCorrect(self, p, answer = None):
+    def hapCorrect(self, p, answer=None):
         if answer is None:
             temp = self.al.answerSet
             self.l.addTable(p[0].name, temp)
@@ -81,9 +86,8 @@ class MainWindow(QWidget):
         p[1].setUserScoreLabel(str(p[0].score))
         self.gl.currentround += 1
 
-        if self.gl.currentround > self.gl.rounds:\
-            return # TODO 종료 함수
-
+        if self.gl.currentround > self.gl.rounds:
+            return 0
 
         self.gl.currentfigure = self.gl.roundFigures[self.gl.currentround - 1]
 
@@ -97,7 +101,6 @@ class MainWindow(QWidget):
 
     def wrong(self, p):
         p[1].setUserScoreLabel(str(p[0].score))
-
 
     def turnChange(self, p1: Player, p2: Player):
         if self.isSinglePlay is False:
@@ -122,7 +125,6 @@ class MainWindow(QWidget):
                     self.gyeolCorrect(player)
                 else:
                     self.wrong(player)
-    #TODO 종료함수
 
 
 if __name__ == "__main__":

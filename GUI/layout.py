@@ -4,9 +4,6 @@ from PyQt5.QtGui import QFont, QIcon
 from PyQt5.Qt import QSize
 from System.gyeolhap import Gyeolhap
 from GUI.UI import Tile
-import sys
-
-import random  # TODO Delete
 
 
 class LogLayout(QGridLayout):
