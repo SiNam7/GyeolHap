@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QGridLayout
+from PyQt5.QtWidgets import QWidget, QGridLayout, QMessageBox
 from GUI.layout import *
 from System.gyeolhap import Gyeolhap, Player
 from System.bot import botSolveAlgorithm
@@ -87,7 +87,7 @@ class MainWindow(QWidget):
         self.gl.currentround += 1
 
         if self.gl.currentround > self.gl.rounds:
-            return 0
+            return self.gameOver()
 
         self.gl.currentfigure = self.gl.roundFigures[self.gl.currentround - 1]
 
@@ -125,6 +125,14 @@ class MainWindow(QWidget):
                     self.gyeolCorrect(player)
                 else:
                     self.wrong(player)
+
+    def gameOver(self):
+        msg = QMessageBox()
+        msg.setText("Game Over")
+        result = msg.exec_()
+
+        if result == QMessageBox.Ok:
+            sys.exit()
 
 
 if __name__ == "__main__":

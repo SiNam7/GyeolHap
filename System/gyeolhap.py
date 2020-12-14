@@ -73,7 +73,7 @@ class Gyeolhap:
     :var self.currentfigure: 현재 라운드에 해당하는 라운드 객체.
     :var self.startplayer: 선 플레이어.
     """
-    rounds = 1  #TODO Test
+    rounds = 10
     timeout = 60  # seconds
     score = {'G': 3, 'H': 1}
     penalty = {'G': 1, 'H': 1}
